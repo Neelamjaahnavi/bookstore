@@ -29,7 +29,6 @@
       <div class="cart-container">
         <h2>Shopping Cart</h2>
         <div id="cartItems"></div>
-
         <div class="cart-summary" id="cartSummary"></div>
 
         <button
@@ -42,29 +41,24 @@
       </div>
     </div>
 
-    <!-- Cart Script -->
+    <!-- Script -->
     <script>
-      // Load cart from localStorage
       let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-      // Update cart count in navbar
       function updateCartCount() {
         document.querySelector(".cart-count").textContent = cart.length;
       }
 
-      // Save cart to localStorage
       function saveCart() {
         localStorage.setItem("cart", JSON.stringify(cart));
       }
 
-      // Remove item from cart
       function removeFromCart(title) {
         cart = cart.filter(item => item.title !== title);
         saveCart();
         renderCart();
       }
 
-      // Render cart items
       function renderCart() {
         const cartItemsDiv = document.getElementById("cartItems");
         const cartSummaryDiv = document.getElementById("cartSummary");
@@ -80,7 +74,7 @@
         let subtotal = 0;
 
         cart.forEach(item => {
-          subtotal += parseInt(item.price.replace("₹", ""));
+          subtotal += item.price;
           const cartItem = document.createElement("div");
           cartItem.classList.add("cart-item");
           cartItem.innerHTML = `
@@ -88,7 +82,7 @@
             <div class="cart-item-info">
               <div class="cart-item-title">${item.title}</div>
             </div>
-            <div class="cart-item-price">${item.price}</div>
+            <div class="cart-item-price">₹${item.price}</div>
             <button class="remove-btn">Remove</button>
           `;
           cartItem.querySelector(".remove-btn").addEventListener("click", () => {
@@ -97,7 +91,6 @@
           cartItemsDiv.appendChild(cartItem);
         });
 
-        // Summary
         const shipping = 50;
         const total = subtotal + shipping;
         cartSummaryDiv.innerHTML = `
@@ -115,7 +108,6 @@
         updateCartCount();
       }
 
-      // Initialize cart on page load
       renderCart();
     </script>
   </body>
