@@ -93,13 +93,9 @@
 
         const shipping = 50;
         const total = subtotal + shipping;
+
+        // Show only the total
         cartSummaryDiv.innerHTML = `
-          <div class="summary-row">
-            <span>Subtotal:</span><span>₹${subtotal}</span>
-          </div>
-          <div class="summary-row">
-            <span>Shipping:</span><span>₹${shipping}</span>
-          </div>
           <div class="summary-row total">
             <span>Total:</span><span>₹${total}</span>
           </div>
